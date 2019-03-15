@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="727532311664-a5gpgrcj7u5t352tfo8okpcjpfnful5h.apps.googleusercontent.com">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!--<script src="sample.js"></script>-->
+    <script src="JavaScript.js"></script>
+    <style>
+        .g-signin2 {
+            margin-left: 500px;
+            margin-top: 200px;
+        }
+
+        .data {
+            display: none;
+        }
+    </style>
+    <script>
+
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function () {
+                console.log('Async: Copying to clipboard was successful!');
+            }, function (err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+        }
+
+        var copyBobBtn = document.querySelector('.js-copy-bob-btn'),
+            copyJaneBtn = document.querySelector('.js-copy-jane-btn');
+
+        copyBobBtn.addEventListener('click', function (event) {
+            copyTextToClipboard('Bob');
+        });
+
+
+    </script>
+
+</head>
+<body>
+
+
+
+
+
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <div class="data">
+        <p>Profle Details</p>
+        <img id="pic" class="img-circle" width="100" height="100" />
+        <p>Profile Details</p>
+
+        <p id="id_token" class="alert alert-danger"></p>
+        <p id="id" class="alert alert-danger"></p>
+
+        <p id="gname" class="alert alert-danger"></p>
+        <p id="fname" class="alert alert-danger"></p>
+        <p id="name" class="alert alert-danger"></p>
+        <p id="email" class="alert alert-danger"></p>
+
+
+        <button onclick="signout()" class="btn btn-danger">signout</button>
+    </div>
+</body>
+</html>
